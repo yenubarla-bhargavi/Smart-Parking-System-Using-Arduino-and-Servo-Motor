@@ -1,0 +1,31 @@
+# IR sensor Connections
+
+| IR Sensor | Arduino |
+| --------- | ------- |
+| VCC       | 5V      |
+| GND       | GND     |
+| OUT       | D7      |
+
+# Servo Motor Connections
+  
+| Servo  | Arduino |
+| ------ | ------- |
+| VCC    | 5V      |
+| GND    | GND     |
+| Signal | D9      |
+
+#LCD 16x2 Connections
+
+| LCD Pin | Arduino |
+| ------- | ------- |
+| RS      | D12     |
+| EN      | D11     |
+| D4      | D5      |
+| D5      | D4      |
+| D6      | D3      |
+| D7      | D2      |
+| VSS     | GND     |
+| VDD     | 5V      |
+
+#
+
