@@ -1,0 +1,87 @@
+#include <Servo.h>
+#include <LiquidCrystal.h>
+
+Servo gateServo;
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+const int irSensor = 7;
+
+const int totalSlots = 10;
+int availableSlots = 10;
+
+void setup()
+{
+  pinMode(irSensor, INPUT);
+
+  gateServo.attach(9);
+  gateServo.write(0);
+
+  lcd.begin(16, 2);
+
+  lcd.print("SMART PARKING");
+  delay(2000);
+
+  displayStatus();
+}
+
+void loop()
+{
+  if (digitalRead(irSensor) == LOW)
+  {
+    if (availableSlots > 0)
+    {
+      lcd.clear();
+      lcd.print("Vehicle Found");
+
+      lcd.setCursor(0, 1);
+      lcd.print("Gate Opening");
+
+      gateServo.write(90);
+      delay(3000);
+
+      availableSlots--;
+
+      gateServo.write(0);
+
+      lcd.clear();
+      lcd.print("Entry Success");
+
+      delay(2000);
+
+      displayStatus();
+
+      while (digitalRead(irSensor) == LOW);
+    }
+    else
+    {
+      lcd.clear();
+      lcd.print("Parking Full");
+
+      lcd.setCursor(0, 1);
+      lcd.print("No Space");
+
+      delay(3000);
+
+      displayStatus();
+    }
+  }
+}
+
+void displayStatus()
+{
+  lcd.clear();
+
+  lcd.setCursor(0, 0);
+  lcd.print("Slots Left:");
+
+  lcd.setCursor(12, 0);
+  lcd.print(availableSlots);
+
+  lcd.setCursor(0, 1);
+
+  if (availableSlots > 0)
+    lcd.print("Welcome");
+  else
+    lcd.print("Parking Full");
+}
